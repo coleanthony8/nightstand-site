@@ -685,6 +685,211 @@
       }
     }
 
+    /* ── Spin the Wheel ─────────────────────────── */
+    .spin-section {
+      border-top: 1px solid rgba(27, 67, 50, 0.12);
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .spin-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 40px;
+      margin-top: 64px;
+    }
+
+    .wheel-wrapper {
+      position: relative;
+      width: 380px;
+      height: 380px;
+    }
+
+    .wheel-pointer {
+      position: absolute;
+      top: -18px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+      width: 0;
+      height: 0;
+      border-left: 16px solid transparent;
+      border-right: 16px solid transparent;
+      border-top: 30px solid var(--accent);
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+    }
+
+    #wheelCanvas {
+      width: 380px;
+      height: 380px;
+      border-radius: 50%;
+      box-shadow: 0 0 0 6px var(--green), 0 8px 40px rgba(27, 67, 50, 0.15);
+    }
+
+    .spin-btn {
+      padding: 18px 48px;
+      border: 2px solid var(--green);
+      border-radius: 999px;
+      background: var(--cream);
+      color: var(--green);
+      font-family: 'DM Mono', monospace;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.3s ease, color 0.3s ease, transform 0.2s ease;
+    }
+
+    .spin-btn:hover:not(:disabled) {
+      background: var(--green);
+      color: var(--cream);
+      transform: scale(1.04);
+    }
+
+    .spin-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    /* Result card */
+    .spin-result {
+      display: none;
+      max-width: 560px;
+      margin: 0 auto;
+      text-align: left;
+      background: var(--green);
+      border-radius: 20px;
+      padding: 40px;
+      color: var(--cream);
+      animation: resultAppear 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    @keyframes resultAppear {
+      from { opacity: 0; transform: translateY(24px) scale(0.96); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .spin-result.show {
+      display: flex;
+      gap: 32px;
+    }
+
+    .result-cover {
+      flex-shrink: 0;
+      width: 140px;
+      height: 210px;
+      border-radius: 8px;
+      object-fit: cover;
+      background: var(--green-light);
+      box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .result-info {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .result-genre {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    .result-title {
+      font-family: 'Instrument Serif', serif;
+      font-size: 1.75rem;
+      line-height: 1.15;
+      color: var(--cream);
+    }
+
+    .result-author {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.85rem;
+      color: rgba(250, 247, 242, 0.6);
+    }
+
+    .result-blurb {
+      font-size: 0.9rem;
+      line-height: 1.6;
+      color: rgba(250, 247, 242, 0.75);
+      margin-top: 8px;
+    }
+
+    .result-actions {
+      display: flex;
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .result-buy {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 10px 20px;
+      border-radius: 999px;
+      background: var(--accent);
+      color: var(--green);
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: background 0.2s ease, transform 0.2s ease;
+    }
+
+    .result-buy:hover {
+      background: var(--accent-light);
+      transform: scale(1.04);
+    }
+
+    .result-spin-again {
+      padding: 10px 20px;
+      border-radius: 999px;
+      border: 1px solid rgba(250, 247, 242, 0.25);
+      background: transparent;
+      color: var(--cream);
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: border-color 0.2s ease;
+    }
+
+    .result-spin-again:hover {
+      border-color: rgba(250, 247, 242, 0.6);
+    }
+
+    @media (max-width: 600px) {
+      .wheel-wrapper {
+        width: 280px;
+        height: 280px;
+      }
+
+      #wheelCanvas {
+        width: 280px;
+        height: 280px;
+      }
+
+      .spin-result.show {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding: 32px 24px;
+      }
+
+      .result-actions {
+        justify-content: center;
+      }
+    }
+
     /* ── Animations on scroll ─────────────────── */
     .reveal {
       opacity: 0;
@@ -709,6 +914,7 @@
       <li><a href="#how-it-works">How It Works</a></li>
       <li><a href="#sommelier">Sommelier</a></li>
       <li><a href="#anti-algorithm">Anti-Algorithm</a></li>
+      <li><a href="#spin">Spin</a></li>
       <li><a href="#newsletter">Subscribe</a></li>
     </ul>
   </nav>
@@ -837,6 +1043,41 @@
     </div>
   </section>
 
+  <!-- ── Spin the Wheel ──────────────────────── -->
+  <section class="spin-section" id="spin">
+    <div class="section-inner">
+      <div class="reveal">
+        <p class="section-label">Try Your Luck</p>
+        <h2 class="section-heading">Spin for your<br>next great read.</h2>
+        <p class="section-body" style="margin: 0 auto 0;">
+          Can't decide? Let fate choose. Spin the wheel and discover a book loved by readers everywhere. No preferences needed — just curiosity.
+        </p>
+      </div>
+      <div class="spin-container reveal">
+        <div class="wheel-wrapper">
+          <div class="wheel-pointer"></div>
+          <canvas id="wheelCanvas" width="760" height="760"></canvas>
+        </div>
+        <button class="spin-btn" id="spinBtn" onclick="spinWheel()">Spin the Wheel</button>
+      </div>
+      <div class="spin-result" id="spinResult">
+        <img class="result-cover" id="resultCover" src="" alt="Book cover">
+        <div class="result-info">
+          <span class="result-genre" id="resultGenre"></span>
+          <h3 class="result-title" id="resultTitle"></h3>
+          <span class="result-author" id="resultAuthor"></span>
+          <p class="result-blurb" id="resultBlurb"></p>
+          <div class="result-actions">
+            <a class="result-buy" id="resultBuy" href="#" target="_blank" rel="noopener">
+              Buy on Amazon &rarr;
+            </a>
+            <button class="result-spin-again" onclick="resetWheel()">Spin Again</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- ── Newsletter CTA ──────────────────────── -->
   <section class="newsletter" id="newsletter">
     <div class="section-inner">
@@ -867,6 +1108,7 @@
         <li><a href="#how-it-works">How It Works</a></li>
         <li><a href="#sommelier">Sommelier</a></li>
         <li><a href="#anti-algorithm">Anti-Algorithm</a></li>
+        <li><a href="#spin">Spin</a></li>
         <li><a href="#newsletter">Subscribe</a></li>
       </ul>
       <span class="footer-copy">&copy; 2026 Nightstand</span>
@@ -892,6 +1134,227 @@
     }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
 
     reveals.forEach(el => observer.observe(el));
+
+    // ── Spin the Wheel ───────────────────────────
+    const BOOKS = [
+      {
+        title: "Project Hail Mary",
+        author: "Andy Weir",
+        genre: "Sci-Fi",
+        blurb: "A lone astronaut wakes up on a spaceship with no memory of how he got there — and the fate of Earth depends on him solving an impossible scientific puzzle. Warm, witty, and wildly inventive.",
+        cover: "https://covers.openlibrary.org/b/isbn/0593135202-L.jpg",
+        isbn: "0593135202"
+      },
+      {
+        title: "The House in the Cerulean Sea",
+        author: "TJ Klune",
+        genre: "Fantasy",
+        blurb: "A caseworker for magical youth is sent to evaluate an orphanage on a remote island, where he discovers a found family and a life bigger than his filing cabinets. Pure warmth.",
+        cover: "https://covers.openlibrary.org/b/isbn/1250217288-L.jpg",
+        isbn: "1250217288"
+      },
+      {
+        title: "Piranesi",
+        author: "Susanna Clarke",
+        genre: "Literary Fantasy",
+        blurb: "A man lives alone in a vast, labyrinthine house filled with ocean tides and classical statues. As he journals his discoveries, the mystery of who he is slowly unravels. Meditative and strange.",
+        cover: "https://covers.openlibrary.org/b/isbn/1635575168-L.jpg",
+        isbn: "1635575168"
+      },
+      {
+        title: "Anxious People",
+        author: "Fredrik Backman",
+        genre: "Fiction",
+        blurb: "A failed bank robber accidentally takes a group of strangers hostage during an apartment open house. What follows is a deeply human comedy about anxiety, forgiveness, and connection.",
+        cover: "https://covers.openlibrary.org/b/isbn/1501160834-L.jpg",
+        isbn: "1501160834"
+      },
+      {
+        title: "The Midnight Library",
+        author: "Matt Haig",
+        genre: "Fiction",
+        blurb: "Between life and death, Nora finds a library where each book lets her live a different version of her life. A poignant exploration of regret, possibility, and what makes life worth living.",
+        cover: "https://covers.openlibrary.org/b/isbn/0525559477-L.jpg",
+        isbn: "0525559477"
+      },
+      {
+        title: "Circe",
+        author: "Madeline Miller",
+        genre: "Mythology",
+        blurb: "The witch of Greek myth tells her own story — from powerless nymph to formidable goddess. Lush, feminist, and fiercely beautiful. A mythological epic that feels intimate.",
+        cover: "https://covers.openlibrary.org/b/isbn/0316556343-L.jpg",
+        isbn: "0316556343"
+      },
+      {
+        title: "Klara and the Sun",
+        author: "Kazuo Ishiguro",
+        genre: "Literary Sci-Fi",
+        blurb: "An artificial friend observes the world from a store window, waiting to be chosen. Ishiguro's quiet, devastating meditation on love, consciousness, and what it means to be seen.",
+        cover: "https://covers.openlibrary.org/b/isbn/059331817X-L.jpg",
+        isbn: "059331817X"
+      },
+      {
+        title: "Tomorrow, and Tomorrow, and Tomorrow",
+        author: "Gabrielle Zevin",
+        genre: "Literary Fiction",
+        blurb: "Two friends create video games together across three decades — a sprawling, bittersweet novel about creativity, ambition, disability, and the many forms love takes.",
+        cover: "https://covers.openlibrary.org/b/isbn/0593321200-L.jpg",
+        isbn: "0593321200"
+      },
+      {
+        title: "The Seven Husbands of Evelyn Hugo",
+        author: "Taylor Jenkins Reid",
+        genre: "Historical Fiction",
+        blurb: "An aging Hollywood icon finally tells the true story of her glamorous, scandalous life — and the great love she kept hidden. Addictive, emotional, and full of surprises.",
+        cover: "https://covers.openlibrary.org/b/isbn/1501161938-L.jpg",
+        isbn: "1501161938"
+      },
+      {
+        title: "Lessons in Chemistry",
+        author: "Bonnie Garmus",
+        genre: "Historical Fiction",
+        blurb: "A brilliant chemist in the 1960s becomes the unlikely star of a cooking show, using it as a platform to teach women they're capable of anything. Sharp, funny, and deeply satisfying.",
+        cover: "https://covers.openlibrary.org/b/isbn/038554734X-L.jpg",
+        isbn: "038554734X"
+      }
+    ];
+
+    const AFFILIATE_TAG = "nightstand04-20";
+    const WHEEL_COLORS = [
+      '#1B4332', '#2D6A4F', '#40916C', '#52796F', '#D4A373',
+      '#1B4332', '#2D6A4F', '#40916C', '#52796F', '#D4A373'
+    ];
+
+    const canvas = document.getElementById('wheelCanvas');
+    const ctx = canvas.getContext('2d');
+    let currentRotation = 0;
+    let isSpinning = false;
+
+    function drawWheel(rotation) {
+      const cx = canvas.width / 2;
+      const cy = canvas.height / 2;
+      const r = cx - 4;
+      const sliceAngle = (2 * Math.PI) / BOOKS.length;
+
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.save();
+      ctx.translate(cx, cy);
+      ctx.rotate(rotation);
+
+      BOOKS.forEach((book, i) => {
+        const startAngle = i * sliceAngle;
+        const endAngle = startAngle + sliceAngle;
+
+        // Draw slice
+        ctx.beginPath();
+        ctx.moveTo(0, 0);
+        ctx.arc(0, 0, r, startAngle, endAngle);
+        ctx.closePath();
+        ctx.fillStyle = WHEEL_COLORS[i];
+        ctx.fill();
+        ctx.strokeStyle = 'rgba(250, 247, 242, 0.15)';
+        ctx.lineWidth = 2;
+        ctx.stroke();
+
+        // Draw mystery question mark only — title revealed after spin
+        ctx.save();
+        ctx.rotate(startAngle + sliceAngle / 2);
+        ctx.textAlign = 'center';
+        ctx.fillStyle = (WHEEL_COLORS[i] === '#D4A373') ? 'rgba(27,67,50,0.35)' : 'rgba(250,247,242,0.25)';
+        ctx.font = '400 52px "Instrument Serif", serif';
+        ctx.fillText('?', r * 0.58, 18);
+        ctx.restore();
+      });
+
+      // Center circle
+      ctx.beginPath();
+      ctx.arc(0, 0, 42, 0, 2 * Math.PI);
+      ctx.fillStyle = '#FAF7F2';
+      ctx.fill();
+      ctx.strokeStyle = '#1B4332';
+      ctx.lineWidth = 3;
+      ctx.stroke();
+      ctx.fillStyle = '#1B4332';
+      ctx.font = '400 28px "Instrument Serif", serif';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText('n', 0, 2);
+
+      ctx.restore();
+    }
+
+    function spinWheel() {
+      if (isSpinning) return;
+      isSpinning = true;
+
+      const btn = document.getElementById('spinBtn');
+      const result = document.getElementById('spinResult');
+      btn.disabled = true;
+      btn.textContent = 'Spinning...';
+      result.classList.remove('show');
+
+      // Pick a random book
+      const winnerIndex = Math.floor(Math.random() * BOOKS.length);
+      const sliceAngle = (2 * Math.PI) / BOOKS.length;
+
+      // Calculate target: align winning slice with the top (pointer)
+      // The pointer is at -PI/2 (top). We want the middle of the winning slice there.
+      const targetSliceCenter = winnerIndex * sliceAngle + sliceAngle / 2;
+      // We need rotation such that when applied, the slice center aligns with -PI/2
+      const targetAngle = -targetSliceCenter - Math.PI / 2;
+      // Add full rotations for drama
+      const extraSpins = (5 + Math.random() * 3) * 2 * Math.PI;
+      const totalRotation = targetAngle + extraSpins - currentRotation;
+
+      const duration = 4000 + Math.random() * 1500;
+      const startTime = performance.now();
+      const startRotation = currentRotation;
+
+      function animate(now) {
+        const elapsed = now - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        // Ease-out cubic for decelerating spin
+        const eased = 1 - Math.pow(1 - progress, 3);
+
+        currentRotation = startRotation + totalRotation * eased;
+        drawWheel(currentRotation);
+
+        if (progress < 1) {
+          requestAnimationFrame(animate);
+        } else {
+          // Show result
+          isSpinning = false;
+          btn.disabled = false;
+          btn.textContent = 'Spin Again';
+          showResult(BOOKS[winnerIndex]);
+        }
+      }
+
+      requestAnimationFrame(animate);
+    }
+
+    function showResult(book) {
+      const result = document.getElementById('spinResult');
+      document.getElementById('resultCover').src = book.cover;
+      document.getElementById('resultCover').alt = book.title + ' cover';
+      document.getElementById('resultGenre').textContent = book.genre;
+      document.getElementById('resultTitle').textContent = book.title;
+      document.getElementById('resultAuthor').textContent = book.author;
+      document.getElementById('resultBlurb').textContent = book.blurb;
+      document.getElementById('resultBuy').href =
+        `https://www.amazon.com/dp/${book.isbn}?tag=${AFFILIATE_TAG}`;
+      result.classList.add('show');
+      result.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    function resetWheel() {
+      document.getElementById('spinResult').classList.remove('show');
+      document.getElementById('spinBtn').textContent = 'Spin the Wheel';
+      spinWheel();
+    }
+
+    // Initial draw
+    drawWheel(0);
 
     // Newsletter form
     function handleSubmit(e) {
